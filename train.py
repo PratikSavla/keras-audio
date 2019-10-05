@@ -46,3 +46,10 @@ config.total_params = model.count_params()
 
 model.fit(X_train, y_train_hot, batch_size=config.batch_size, epochs=config.epochs, validation_data=(
     X_test, y_test_hot), callbacks=[wandb.keras.WandbCallback(data_type="image", labels=labels)])
+
+model_json = model.to_json()
+with open("model.json", "w") as json_file:
+    json_file.write(model_json)
+
+model.save_weights("model.h5")
+print("Saved model to disk")
